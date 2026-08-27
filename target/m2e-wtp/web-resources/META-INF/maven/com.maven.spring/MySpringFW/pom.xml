@@ -21,6 +21,28 @@
   </properties>
 
   <dependencies>
+    <!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-context -->
+    <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-context</artifactId>
+       <version>${spring.version}</version>
+    </dependency>
+   
+   	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+	<dependency>
+	   <groupId>org.junit.jupiter</groupId>
+	   <artifactId>junit-jupiter-api</artifactId>
+	   <version>5.9.3</version>
+	   <scope>test</scope>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+		<scope>test</scope>
+	</dependency>
     
   </dependencies>
 
