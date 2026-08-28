@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/resources/hello-bean.xml</config>
 		<config>src/main/resources/mylab-order-di.xml</config>
+		<config>src/main/resources/hello-annot.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
