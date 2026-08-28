@@ -9,23 +9,20 @@ import org.springframework.stereotype.Component;
 
 
 @Component("helloBean")
-public class HelloBean {
-	@Value("${myName}")
+public class HelloBeanCons {
 	String name;
-	
-	@Autowired
-	@Qualifier("stringPrinter")
+
 	PrinterBean printer;
 	
-	@Value("#{'${myNameList}'.split(',')}")
-	//@Value("Java,SpringFW,SpringBoot")
 	List<String> names;
 
-	public HelloBean() {
+	public HelloBeanCons() {
 		System.out.println(this.getClass().getName() + "기본생성자 호출됨!");
 	}
-
-	public HelloBean(String name, PrinterBean printer) {
+	
+    @Autowired
+	public HelloBeanCons(@Value("${myName2}") String name, 
+			             @Qualifier("consolePrinter") PrinterBean printer) {
 		System.out.println(this.getClass().getName() + "오버로딩 생성자 호출됨!");
 		this.name = name;
 		this.printer = printer;
