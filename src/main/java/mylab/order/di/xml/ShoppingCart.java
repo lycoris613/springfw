@@ -1,4 +1,4 @@
-package mylab.di.xml;
+package mylab.order.di.xml;
 
 import java.util.List;
 
