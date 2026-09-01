@@ -5,11 +5,40 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Product 빈 정의 -->
-    <bean id="product1" class="mylab.order.di.xml.Product">
-        <property name= "id" value="P001" />
-        <property name= "name" value="노트북" />
-        <property name= "price" value="1500000" />
-    </bean>
-    
+	<!-- ================================================================
+	     [Spring 실습1] DI 전략1 : 모든 Configuration 을 XML 로 설정
+	     ================================================================ -->
+
+	<!-- product1 : setter injection (지문 조건 - "setter injection 으로 SpringBean 선언")
+	     Product 에 기본생성자 + setId/setName/setPrice 가 있으므로 <property> 로 주입 -->
+	<bean id="product1" class="mylab.order.di.xml.Product">
+		<property name="id" value="P001" />
+		<property name="name" value="노트북" />
+		<property name="price" value="150000" />
+	</bean>
+
+	<!-- product2 : constructor injection (지문 조건 - "constructor injection 으로 SpringBean 선언")
+	     Product(String id, String name, double price) 생성자를 사용하므로 <constructor-arg> 로 주입 -->
+	<bean id="product2" class="mylab.order.di.xml.Product">
+		<constructor-arg value="P002" />
+		<constructor-arg value="스마트폰" />
+		<constructor-arg value="800000" />
+	</bean>
+
+	<!-- shoppingCart : setProducts() 에 대한 setter injection
+	     지문에 명시된 <property name="products"><list><ref/></list></property> 형태 -->
+	<bean id="shoppingCart" class="mylab.order.di.xml.ShoppingCart">
+		<property name="products">
+			<list>
+				<ref bean="product1" />
+				<ref bean="product2" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- orderService : setShoppingCart(ShoppingCart) 에 대한 setter injection -->
+	<bean id="orderService" class="mylab.order.di.xml.OrderService">
+		<property name="shoppingCart" ref="shoppingCart" />
+	</bean>
+
 </beans>

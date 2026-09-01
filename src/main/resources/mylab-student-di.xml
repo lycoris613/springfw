@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- ================================================================
+	     [Spring 실습1-1] (선택 과제) DI 전략1 : 모든 Configuration 을 XML 로 설정
+	     성적(GradeService) - 강좌(Course) - 학생(Student)
+	     실습1(주문-장바구니-상품)과 동일한 구조로 작성
+	     ================================================================ -->
+
+	<!-- student1 : setter injection
+	     Student 에 기본생성자 + setId/setName/setScore 가 있으므로 <property> 로 주입 -->
+	<bean id="student1" class="mylab.student.di.xml.Student">
+		<property name="id" value="S001" />
+		<property name="name" value="김철수" />
+		<property name="score" value="95" />
+	</bean>
+
+	<!-- student2 : constructor injection
+	     Student(String id, String name, int score) 생성자를 사용하므로 <constructor-arg> 로 주입 -->
+	<bean id="student2" class="mylab.student.di.xml.Student">
+		<constructor-arg value="S002" />
+		<constructor-arg value="이영희" />
+		<constructor-arg value="80" />
+	</bean>
+
+	<!-- student3 : constructor injection (등급/고득점 검증에 점수 편차를 주기 위한 낙제 케이스) -->
+	<bean id="student3" class="mylab.student.di.xml.Student">
+		<constructor-arg value="S003" />
+		<constructor-arg value="박민수" />
+		<constructor-arg value="55" />
+	</bean>
+
+	<!-- course : setCourseId / setCourseName / setStudents 에 대한 setter injection -->
+	<bean id="course" class="mylab.student.di.xml.Course">
+		<property name="courseId" value="C001" />
+		<property name="courseName" value="Spring Framework" />
+		<property name="students">
+			<list>
+				<ref bean="student1" />
+				<ref bean="student2" />
+				<ref bean="student3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- gradeService : setCourse(Course) 에 대한 setter injection -->
+	<bean id="gradeService" class="mylab.student.di.xml.GradeService">
+		<property name="course" ref="course" />
+	</bean>
+
+</beans>
